@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="talentflow 1.0.0" name="https://anniechiang-data.framer.website/ontology/talentflow/1.0.0" uri="talentflow.ttl"/>
+    <uri id="talentflow" name="https://anniechiang-data.framer.website/ontology/talentflow" uri="talentflow.ttl"/>
+    <uri id="decision-status 1.1.0" name="https://anniechiang-data.framer.website/vocab/decision-status/1.1.0" uri="imports/decision-status.ttl"/>
+    <uri id="decision-status" name="https://anniechiang-data.framer.website/vocab/decision-status" uri="imports/decision-status.ttl"/>
+</catalog>

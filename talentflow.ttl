@@ -1,0 +1,226 @@
+@prefix : <https://anniechiang-data.framer.website/ontology/talentflow#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@base <https://anniechiang-data.framer.website/ontology/talentflow#> .
+
+<https://anniechiang-data.framer.website/ontology/talentflow> rdf:type owl:Ontology ;
+                                                               owl:versionIRI <https://anniechiang-data.framer.website/ontology/talentflow/1.0.0> ;
+                                                               owl:imports <https://anniechiang-data.framer.website/vocab/decision-status/1.1.0> ;
+                                                               dct:creator "Annie Chiang" ;
+                                                               dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                                               rdfs:comment "An ontology for tracking GDPR compliance events, the decisions made about them and the chain of superseded decisions, for the fictional company TalentFlow B.V. Decision status values are drawn from the decision-status SKOS vocabulary."@en ,
+                                                                            "追蹤 GDPR 合規事件、相關決策與決策取代鏈的本體，情境為虛構公司 TalentFlow B.V.。決策狀態值取自 decision-status SKOS 受控詞彙。"@zh-hant ;
+                                                               rdfs:label "TalentFlow Compliance Ontology"@en ,
+                                                                          "TalentFlow 合規本體"@zh-hant ;
+                                                               owl:versionInfo "1.0.0" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#basedOnRegulation
+:basedOnRegulation rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Decision ;
+                   rdfs:range :Regulation ;
+                   rdfs:comment "A legal provision cited as the basis of a decision."@en ,
+                                "決策引用作為依據的法規條款。"@zh-hant ;
+                   rdfs:label "based on regulation"@en ,
+                              "依據條款"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#hasDecision
+:hasDecision rdf:type owl:ObjectProperty ;
+             rdfs:domain :ComplianceEvent ;
+             rdfs:range :Decision ;
+             rdfs:comment "Links a compliance event to a decision made about it, including superseded decisions."@en ,
+                          "連結合規事件與針對它做出的決策，含已被取代的決策。"@zh-hant ;
+             rdfs:label "has decision"@en ,
+                        "有決策"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#hasDecisionStatus
+:hasDecisionStatus rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Decision ;
+                   rdfs:range <http://www.w3.org/2004/02/skos/core#Concept> ;
+                   rdfs:comment "The stage a decision has reached, or how it ended without replacement. Values must come from the decision-status SKOS vocabulary. ds:Superseded is not asserted here: whether a decision has been superseded is derived from the supersedes relation (see Superseded decision). One value per decision is expected; this is checked by SHACL validation rather than by declaring the property functional."@en ,
+                                "決策走到哪一步，或在沒被取代的情況下如何結束。值必須來自 decision-status SKOS 受控詞彙。不在此標 ds:Superseded：是否已被取代由 supersedes 關係推得（見「已被取代的決策」）。每個決策應只有一個值，以 SHACL 驗證檢查，不宣告為 Functional。"@zh-hant ;
+                   rdfs:label "has decision status"@en ,
+                              "決策狀態"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#hasDocument
+:hasDocument rdf:type owl:ObjectProperty ;
+             rdfs:domain :ComplianceEvent ;
+             rdfs:range :Document ;
+             rdfs:comment "Links a compliance event to a document related to it."@en ,
+                          "連結合規事件與相關文件。"@zh-hant ;
+             rdfs:label "has document"@en ,
+                        "相關文件"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#hasResponsibleActor
+:hasResponsibleActor rdf:type owl:ObjectProperty ;
+                     rdfs:domain :ComplianceEvent ;
+                     rdfs:range :Actor ;
+                     rdfs:comment "The person or department responsible for handling a compliance event. May be absent when no one has been assigned."@en ,
+                                  "負責處理合規事件的人或部門。尚未指派時可以沒有值。"@zh-hant ;
+                     rdfs:label "has responsible actor"@en ,
+                                "負責人"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#involvesRegulation
+:involvesRegulation rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ComplianceEvent ;
+                    rdfs:range :Regulation ;
+                    rdfs:comment "A legal provision whose obligation is triggered by a compliance event (e.g. a breach triggering Art. 33)."@en ,
+                                 "合規事件觸發其義務的法規條款（例如外洩觸發 Art. 33 通報義務）。"@zh-hant ;
+                    rdfs:label "involves regulation"@en ,
+                               "涉及條款"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#madeBy
+:madeBy rdf:type owl:ObjectProperty ;
+        rdfs:domain :Decision ;
+        rdfs:range :Actor ;
+        rdfs:comment "The person or department that made a decision."@en ,
+                     "做出決策的人或部門。"@zh-hant ;
+        rdfs:label "made by"@en ,
+                   "決策者"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#reportedBy
+:reportedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :ComplianceEvent ;
+            rdfs:range :Actor ;
+            rdfs:comment "The internal actor who reported a compliance event. Not used for requests raised by data subjects."@en ,
+                         "通報合規事件的內部行動者。資料主體提出的請求不填。"@zh-hant ;
+            rdfs:label "reported by"@en ,
+                       "通報者"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#supersedes
+:supersedes rdf:type owl:ObjectProperty ;
+            rdfs:domain :Decision ;
+            rdfs:range :Decision ;
+            rdfs:comment "Links a later decision to the earlier decision it replaces. Points from the new decision to the old one."@en ,
+                         "連結新決策與被它取代的舊決策，方向由新指向舊。"@zh-hant ;
+            rdfs:label "supersedes"@en ,
+                       "取代"@zh-hant .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#decidedAt
+:decidedAt rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Decision ;
+           rdfs:range xsd:dateTime ;
+           rdfs:comment "The date and time a decision was made. Recorded to the time of day so that decisions on the same day can be ordered."@en ,
+                        "做出決策的日期與時刻。記到時刻，讓同一天的多個決策也能排出先後。"@zh-hant ;
+           rdfs:label "decided at"@en ,
+                      "決策時間"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#hasClosedDate
+:hasClosedDate rdf:type owl:DatatypeProperty ;
+               rdfs:domain :ComplianceEvent ;
+               rdfs:range xsd:dateTime ;
+               rdfs:comment "The date and time the compliance event was closed. An event without this value is treated as open."@en ,
+                            "合規事件結案的日期與時刻。沒有此值的事件視為未結案。"@zh-hant ;
+               rdfs:label "has closed date"@en ,
+                          "結案日"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#hasDeadline
+:hasDeadline rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ComplianceEvent ;
+             rdfs:range xsd:dateTime ;
+             rdfs:comment "The date and time by which the compliance event must be handled. Typed as xsd:dateTime because OWL 2 does not support xsd:date."@en ,
+                          "合規事件必須處理完成的日期與時刻。型態用 xsd:dateTime，因為 OWL 2 不支援 xsd:date。"@zh-hant ;
+             rdfs:label "has deadline"@en ,
+                        "期限"@zh-hant .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#Actor
+:Actor rdf:type owl:Class ;
+       rdfs:comment "A person or department responsible for, reporting, or deciding on a compliance event. Excludes data subjects and external clients. No personnel records are held."@en ,
+                    "負責、通報或決定合規事件的人或部門。不含資料主體與外部客戶，不建個人檔案。"@zh-hant ;
+       rdfs:label "Actor"@en ,
+                  "行動者"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#ComplianceEvent
+:ComplianceEvent rdf:type owl:Class ;
+                 rdfs:comment "A matter that triggers a statutory obligation under the GDPR (to respond, notify or remediate) and must be tracked until closure. Both conditions are required."@en ,
+                              "觸發 GDPR 法定義務（回應、通報、改正）且需追蹤至結案的事情，兩條件缺一不可。"@zh-hant ;
+                 rdfs:label "Compliance event"@en ,
+                            "合規事件"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#DecidedEvent
+:DecidedEvent rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :ComplianceEvent
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasDecision ;
+                                                           owl:someValuesFrom :Decision
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:comment "A compliance event for which at least one decision has been recorded. Defined class: the reasoner automatically classifies any compliance event linked to a decision via has decision."@en ,
+                           "至少已記錄一項決策的合規事件。此為定義類別：只要合規事件透過 has decision 連到某個決策，推理機就會自動歸入此類。"@zh-hant ;
+              rdfs:label "Decided event"@en ,
+                         "已決策事件"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#Decision
+:Decision rdf:type owl:Class ;
+          rdfs:comment "A disposition made in response to a compliance event. Superseded decisions are retained, not deleted."@en ,
+                       "針對合規事件做出的處置決定。被取代的決策保留，不刪除。"@zh-hant ;
+          rdfs:label "Decision"@en ,
+                     "決策"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#Document
+:Document rdf:type owl:Class ;
+          rdfs:comment "A record related to a compliance event, such as a notification, reply or audit report. A document that cannot be linked to an event is out of scope."@en ,
+                       "與合規事件相關的紀錄，例如通報函、回覆函、稽核報告。無法指出所屬事件的文件不納入。"@zh-hant ;
+          rdfs:label "Document"@en ,
+                     "文件"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#Regulation
+:Regulation rdf:type owl:Class ;
+            rdfs:comment "A provision of law, modelled down to article level (e.g. GDPR Art. 17). Individual articles are instances; the text of the provision is out of scope."@en ,
+                         "法規條款，建到條號為止（例如 GDPR Art. 17）。具體條款為個體，條文內容不在範圍內。"@zh-hant ;
+            rdfs:label "Regulation"@en ,
+                       "法規條款"@zh-hant .
+
+
+###  https://anniechiang-data.framer.website/ontology/talentflow#SupersededDecision
+:SupersededDecision rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( :Decision
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty [ owl:inverseOf :supersedes
+                                                                                ] ;
+                                                                 owl:someValuesFrom :Decision
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                    rdfs:comment "A decision that has been replaced by a later decision. Defined class: the reasoner automatically classifies any decision that another decision points to via supersedes."@en ,
+                                 "已被較新決策取代的決策。此為定義類別：只要有其他決策以 supersedes 指向它，推理機就會自動歸入此類。"@zh-hant ;
+                    rdfs:label "Superseded decision"@en ,
+                               "已被取代的決策"@zh-hant .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
