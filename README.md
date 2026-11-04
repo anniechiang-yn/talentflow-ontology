@@ -22,6 +22,9 @@ The ontology is scoped by 16 competency questions (below). Labels and comments a
 | `talentflow-test.ttl` | Test individuals that check the reasoner's classifications |
 | `imports/decision-status.ttl` | Pinned copy of the Decision Status Vocabulary v1.1.0 (SKOS), used for status values |
 | `catalog-v001.xml` | Tells Protégé where to find imported ontologies locally |
+| `examples/talentflow-sample-data.ttl` | Fictional sample data: six events, eight decisions, four actors, five GDPR articles, four documents |
+| `examples/catalog-v001.xml` | Catalog for opening the sample data in Protégé from the `examples/` folder |
+| `queries/` | SPARQL queries for the 16 competency questions, plus `RESULTS.md` with the results |
 
 ## Model at a glance
 
@@ -53,13 +56,13 @@ Key properties: `hasDecision`, `supersedes` (new → old) and its inverse `super
 | 7 | Has a decision been made for event X? | Reasoner (`DecidedEvent`) |
 | 8 | What is the current status of every event reported by a given person? | Query |
 | 9 | What is the full decision history of event X, in time order, including superseded decisions? | Query |
-| 10 | Which decision superseded decision D, and what is the full chain? | Reasoner (`SupersededDecision`) + query (property path) |
+| 10 | Which decision superseded decision D, and what is the full chain? | Query (property path) |
 | 11 | Who made decision D, and when? | Query |
 | 12 | Which regulations is decision D based on? | Query |
 | 13 | Which documents are linked to event X? | Query |
 | 14 | Which events involve a given article (e.g. Art. 33)? | Query |
 | 15 | Which events have a status under a given broader concept (e.g. Decision-bearing)? | Query (SKOS property path) |
-| 16 | Which decisions currently in force (not superseded, not rejected) involve a given article? | Query (`FILTER NOT EXISTS`) |
+| 16 | Which decisions currently in force (not superseded, rejected or abandoned) involve a given article? | Query (`FILTER NOT EXISTS` + SKOS ordered collection) |
 
 ## How to open and check it
 
@@ -67,11 +70,18 @@ Key properties: `hasDecision`, `supersedes` (new → old) and its inverse `super
 2. Run Reasoner → HermiT → Start reasoner.
 3. Expected results: `testEvent1` is classified as a Decided event; `testDecision1` as a Superseded decision; `testDecision2` stays a plain Decision.
 
+## Validation via SPARQL
+
+All 16 competency questions are answered by the queries in `queries/`, run against `examples/talentflow-sample-data.ttl` in GraphDB 11.4 with the OWL 2 RL (Optimized) ruleset. Every result matched the expected answer; only CQ 7 depends on inference. See [`queries/RESULTS.md`](queries/RESULTS.md) for each question's example, result and the definitions used across queries.
+
+To reproduce: create a GraphDB repository with the OWL 2 RL ruleset, load `imports/decision-status.ttl`, `talentflow.ttl` and `examples/talentflow-sample-data.ttl`, then run the queries. Load `talentflow-test.ttl` into a separate repository, or leave it out, so its test individuals do not appear in the counts. CQ 2 and CQ 4 use `NOW()`, so their results depend on the date the query is run; the sample dates are set around November 2026.
+
 ## Status and roadmap
 
 - v1.0.0: OWL model, defined classes, SKOS status layer, reasoner tests (done)
 - v1.1.0: named inverse property `supersededBy`, so that `SupersededDecision` is also inferred in GraphDB (done)
-- Next: SPARQL queries for all 16 competency questions, SHACL validation, and use as a semantic layer for retrieval (GraphRAG)
+- SPARQL queries and sample data for all 16 competency questions (done)
+- Next: SHACL validation, a Python (rdflib) pipeline, and use as a semantic layer for retrieval (GraphRAG)
 
 ## Related
 
