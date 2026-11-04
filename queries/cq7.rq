@@ -1,0 +1,5 @@
+# CQ 7：事件 X 是否已有處置決策？（以 E5 為例；需推論開啟）
+PREFIX tf:  <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs: <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+ASK { tfs:e5 a tf:DecidedEvent }
