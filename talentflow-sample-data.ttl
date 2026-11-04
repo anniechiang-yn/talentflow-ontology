@@ -1,0 +1,201 @@
+@prefix :     <https://anniechiang-data.framer.website/ontology/talentflow-sample#> .
+@prefix tf:   <https://anniechiang-data.framer.website/ontology/talentflow#> .
+@prefix ds:   <https://anniechiang-data.framer.website/vocab/decision-status#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# TalentFlow sample data (fictional) for answering the 16 competency questions.
+# Dates are set around November 2026 so that "overdue" and "due within 7 days"
+# return results when queried in the week of 2026-11-04.
+#################################################################
+
+<https://anniechiang-data.framer.website/ontology/talentflow-sample> rdf:type owl:Ontology ;
+    owl:imports <https://anniechiang-data.framer.website/ontology/talentflow/1.1.0> ;
+    rdfs:comment "Fictional sample data for TalentFlow B.V.: six compliance events, eight decisions, four actors, five GDPR articles and four documents."@en ,
+                 "TalentFlow B.V. 的虛構範例資料：六個合規事件、八個決策、四個行動者、五個 GDPR 條款、四份文件。"@zh-hant .
+
+#################################################################
+# Actors
+#################################################################
+
+:dpo a owl:NamedIndividual , tf:Actor ;
+    rdfs:label "Data Protection Officer"@en , "資料保護長"@zh-hant .
+
+:hr a owl:NamedIndividual , tf:Actor ;
+    rdfs:label "HR department"@en , "人資部"@zh-hant .
+
+:itSecurity a owl:NamedIndividual , tf:Actor ;
+    rdfs:label "IT Security team"@en , "資安團隊"@zh-hant .
+
+:legal a owl:NamedIndividual , tf:Actor ;
+    rdfs:label "Legal department"@en , "法務部"@zh-hant .
+
+#################################################################
+# Regulations (GDPR articles)
+#################################################################
+
+:gdprArt15 a owl:NamedIndividual , tf:Regulation ;
+    rdfs:label "GDPR Art. 15 (right of access)"@en , "GDPR 第 15 條（查閱權）"@zh-hant .
+
+:gdprArt17 a owl:NamedIndividual , tf:Regulation ;
+    rdfs:label "GDPR Art. 17 (right to erasure)"@en , "GDPR 第 17 條（刪除權）"@zh-hant .
+
+:gdprArt30 a owl:NamedIndividual , tf:Regulation ;
+    rdfs:label "GDPR Art. 30 (records of processing)"@en , "GDPR 第 30 條（處理活動紀錄）"@zh-hant .
+
+:gdprArt33 a owl:NamedIndividual , tf:Regulation ;
+    rdfs:label "GDPR Art. 33 (notification to the authority)"@en , "GDPR 第 33 條（向主管機關通報）"@zh-hant .
+
+:gdprArt34 a owl:NamedIndividual , tf:Regulation ;
+    rdfs:label "GDPR Art. 34 (communication to data subjects)"@en , "GDPR 第 34 條（通知當事人）"@zh-hant .
+
+#################################################################
+# Documents
+#################################################################
+
+:docE1Reply a owl:NamedIndividual , tf:Document ;
+    rdfs:label "Draft reply to access request E1"@en , "E1 查閱請求回覆草稿"@zh-hant .
+
+:docE2Notification a owl:NamedIndividual , tf:Document ;
+    rdfs:label "Breach notification to the authority (E2)"@en , "E2 向主管機關的外洩通報"@zh-hant .
+
+:docE2Report a owl:NamedIndividual , tf:Document ;
+    rdfs:label "Internal incident report (E2)"@en , "E2 內部事件報告"@zh-hant .
+
+:docE3Confirmation a owl:NamedIndividual , tf:Document ;
+    rdfs:label "Erasure confirmation (E3)"@en , "E3 刪除完成確認函"@zh-hant .
+
+#################################################################
+# E1 — Access request, open, due within 7 days
+#################################################################
+
+:e1 a owl:NamedIndividual , tf:ComplianceEvent ;
+    rdfs:label "E1 Access request from an applicant"@en , "E1 求職者查閱請求"@zh-hant ;
+    tf:involvesRegulation :gdprArt15 ;
+    tf:reportedBy :hr ;
+    tf:hasResponsibleActor :dpo ;
+    tf:hasDeadline "2026-11-08T23:59:59+01:00"^^xsd:dateTime ;
+    tf:hasDocument :docE1Reply ;
+    tf:hasDecision :d1 .
+
+:d1 a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D1 Provide a full copy of the applicant's data"@en , "D1 提供求職者完整資料副本"@zh-hant ;
+    tf:hasDecisionStatus ds:Decided ;
+    tf:madeBy :dpo ;
+    tf:decidedAt "2026-10-28T10:00:00+01:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt15 .
+
+#################################################################
+# E2 — Data breach, open, overdue; supersession chain d2a → d2b → d2c
+#################################################################
+
+:e2 a owl:NamedIndividual , tf:ComplianceEvent ;
+    rdfs:label "E2 Applicant database exposed by misconfiguration"@en , "E2 設定錯誤導致求職者資料庫外洩"@zh-hant ;
+    tf:involvesRegulation :gdprArt33 , :gdprArt34 ;
+    tf:reportedBy :itSecurity ;
+    tf:hasResponsibleActor :itSecurity ;
+    tf:hasDeadline "2026-10-30T18:00:00+01:00"^^xsd:dateTime ;
+    tf:hasDocument :docE2Notification , :docE2Report ;
+    tf:hasDecision :d2a , :d2b , :d2c .
+
+:d2a a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D2a Treat as low risk, no notification"@en , "D2a 判定低風險，不通報"@zh-hant ;
+    tf:hasDecisionStatus ds:Implemented ;
+    tf:madeBy :itSecurity ;
+    tf:decidedAt "2026-10-27T09:00:00+01:00"^^xsd:dateTime .
+
+:d2b a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D2b Notify the authority"@en , "D2b 向主管機關通報"@zh-hant ;
+    tf:hasDecisionStatus ds:Implemented ;
+    tf:madeBy :dpo ;
+    tf:decidedAt "2026-10-28T15:30:00+01:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt33 ;
+    tf:supersedes :d2a .
+
+:d2c a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D2c Notify the authority and inform affected applicants"@en , "D2c 通報主管機關並通知受影響求職者"@zh-hant ;
+    tf:hasDecisionStatus ds:Decided ;
+    tf:madeBy :dpo ;
+    tf:decidedAt "2026-10-31T11:00:00+01:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt33 , :gdprArt34 ;
+    tf:supersedes :d2b .
+
+#################################################################
+# E3 — Erasure request, closed
+#################################################################
+
+:e3 a owl:NamedIndividual , tf:ComplianceEvent ;
+    rdfs:label "E3 Erasure request from a former applicant"@en , "E3 前求職者刪除請求"@zh-hant ;
+    tf:involvesRegulation :gdprArt17 ;
+    tf:reportedBy :hr ;
+    tf:hasResponsibleActor :hr ;
+    tf:hasDeadline "2026-10-25T23:59:59+02:00"^^xsd:dateTime ;
+    tf:hasClosedDate "2026-10-20T16:00:00+02:00"^^xsd:dateTime ;
+    tf:hasDocument :docE3Confirmation ;
+    tf:hasDecision :d3 .
+
+:d3 a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D3 Erase all records of the former applicant"@en , "D3 刪除前求職者全部紀錄"@zh-hant ;
+    tf:hasDecisionStatus ds:Implemented ;
+    tf:madeBy :hr ;
+    tf:decidedAt "2026-10-15T14:00:00+02:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt17 .
+
+#################################################################
+# E4 — Audit finding, open, no responsible actor; one rejected proposal
+#################################################################
+
+:e4 a owl:NamedIndividual , tf:ComplianceEvent ;
+    rdfs:label "E4 Audit finding: processing records incomplete"@en , "E4 稽核發現：處理活動紀錄不完整"@zh-hant ;
+    tf:involvesRegulation :gdprArt30 ;
+    tf:reportedBy :legal ;
+    tf:hasDeadline "2026-12-15T23:59:59+01:00"^^xsd:dateTime ;
+    tf:hasDecision :d4a , :d4b .
+
+:d4a a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D4a Buy a records-management tool"@en , "D4a 採購紀錄管理工具"@zh-hant ;
+    tf:hasDecisionStatus ds:Rejected ;
+    tf:madeBy :legal ;
+    tf:decidedAt "2026-10-29T10:00:00+01:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt30 .
+
+:d4b a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D4b Update the records manually each quarter"@en , "D4b 每季人工更新紀錄"@zh-hant ;
+    tf:hasDecisionStatus ds:Exploring ;
+    tf:madeBy :legal ;
+    tf:decidedAt "2026-11-02T10:00:00+01:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt30 .
+
+#################################################################
+# E5 — Access request, open, no decision yet
+#################################################################
+
+:e5 a owl:NamedIndividual , tf:ComplianceEvent ;
+    rdfs:label "E5 Access request from an employee"@en , "E5 員工查閱請求"@zh-hant ;
+    tf:involvesRegulation :gdprArt15 ;
+    tf:reportedBy :hr ;
+    tf:hasResponsibleActor :hr ;
+    tf:hasDeadline "2026-11-20T23:59:59+01:00"^^xsd:dateTime .
+
+#################################################################
+# E6 — Suspected breach, closed, response abandoned
+#################################################################
+
+:e6 a owl:NamedIndividual , tf:ComplianceEvent ;
+    rdfs:label "E6 Suspected phishing of an HR account"@en , "E6 疑似人資帳號遭釣魚"@zh-hant ;
+    tf:involvesRegulation :gdprArt33 ;
+    tf:reportedBy :hr ;
+    tf:hasResponsibleActor :itSecurity ;
+    tf:hasDeadline "2026-10-10T12:00:00+02:00"^^xsd:dateTime ;
+    tf:hasClosedDate "2026-10-09T17:00:00+02:00"^^xsd:dateTime ;
+    tf:hasDecision :d6 .
+
+:d6 a owl:NamedIndividual , tf:Decision ;
+    rdfs:label "D6 Prepare a notification to the authority"@en , "D6 準備向主管機關通報"@zh-hant ;
+    tf:hasDecisionStatus ds:Abandoned ;
+    tf:madeBy :itSecurity ;
+    tf:decidedAt "2026-10-08T09:00:00+02:00"^^xsd:dateTime ;
+    tf:basedOnRegulation :gdprArt33 .
