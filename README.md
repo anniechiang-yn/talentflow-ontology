@@ -2,7 +2,7 @@
 
 An OWL 2 ontology for tracking GDPR compliance events, the decisions made about them, and the chain of decisions that replace one another. The setting is TalentFlow B.V., a fictional 50-person talent-management SaaS company headquartered in Berlin.
 
-Version 1.0.0 · Licence CC BY 4.0 · Author: Annie Chiang
+Version 1.1.0 · Licence CC BY 4.0 · Author: Annie Chiang
 
 ## What it is for
 
@@ -28,16 +28,17 @@ The ontology is scoped by 16 competency questions (below). Labels and comments a
 Classes: `ComplianceEvent`, `Decision`, `Regulation` (GDPR articles as individuals), `Actor`, `Document`, and two defined classes inferred by the reasoner:
 
 - `DecidedEvent` ≡ ComplianceEvent and (hasDecision some Decision)
-- `SupersededDecision` ≡ Decision and (inverse supersedes some Decision)
+- `SupersededDecision` ≡ Decision and (supersededBy some Decision)
 
-Key properties: `hasDecision`, `supersedes` (new → old), `hasDecisionStatus` (values from the SKOS vocabulary), `madeBy`, `basedOnRegulation`, `involvesRegulation`, `hasResponsibleActor`, `reportedBy`, `hasDocument`, `decidedAt`, `hasDeadline`, `hasClosedDate`.
+Key properties: `hasDecision`, `supersedes` (new → old) and its inverse `supersededBy` (old → new, inferred), `hasDecisionStatus` (values from the SKOS vocabulary), `madeBy`, `basedOnRegulation`, `involvesRegulation`, `hasResponsibleActor`, `reportedBy`, `hasDocument`, `decidedAt`, `hasDeadline`, `hasClosedDate`.
 
 ## Key design decisions
 
 1. Status values are SKOS concepts, not OWL subclasses. Status is a value that changes over time, not a kind of decision. Using a controlled vocabulary keeps the class hierarchy stable and lets queries walk the vocabulary's broader/narrower structure.
 2. "Superseded" has one source of truth: the `supersedes` relation. `hasDecisionStatus` records only the stage a decision reached (Exploring, Decided, Implemented) or how it ended without replacement (Abandoned, Rejected). Whether a decision has been superseded is inferred, so a manually set status can never contradict the relation.
 3. `hasDecisionStatus` is not declared functional. OWL has no unique-name assumption, so a functional property with two values would make the reasoner merge the two concepts instead of reporting an error. The one-value rule will be enforced with SHACL (`sh:maxCount 1`).
-4. Questions that depend on absence or on the current date are answered at the query layer. Under the open-world assumption, the reasoner cannot conclude that something is missing (for example "no responsible actor" or "not superseded"), and OWL 2 cannot compare a deadline with today's date. These are handled in SPARQL.
+4. The inverse of `supersedes` is a named property. Version 1.0.0 defined `SupersededDecision` with an anonymous inverse (`inverse supersedes`). HermiT in Protégé classified it correctly, but GraphDB with the OWL 2 RL ruleset did not. Declaring `supersededBy` as a named `owl:inverseOf` property gives the same result in both. Other properties still have no declared inverse; inverse lookups are done in SPARQL.
+5. Questions that depend on absence or on the current date are answered at the query layer. Under the open-world assumption, the reasoner cannot conclude that something is missing (for example "no responsible actor" or "not superseded"), and OWL 2 cannot compare a deadline with today's date. These are handled in SPARQL.
 
 ## Competency questions
 
@@ -69,6 +70,7 @@ Key properties: `hasDecision`, `supersedes` (new → old), `hasDecisionStatus` (
 ## Status and roadmap
 
 - v1.0.0: OWL model, defined classes, SKOS status layer, reasoner tests (done)
+- v1.1.0: named inverse property `supersededBy`, so that `SupersededDecision` is also inferred in GraphDB (done)
 - Next: SPARQL queries for all 16 competency questions, SHACL validation, and use as a semantic layer for retrieval (GraphRAG)
 
 ## Related

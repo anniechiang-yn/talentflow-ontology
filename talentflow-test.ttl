@@ -6,7 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <https://anniechiang-data.framer.website/ontology/talentflow-test> rdf:type owl:Ontology ;
-    owl:imports <https://anniechiang-data.framer.website/ontology/talentflow/1.0.0> ;
+    owl:imports <https://anniechiang-data.framer.website/ontology/talentflow/1.1.0> ;
     rdfs:comment "Test individuals for TalentFlow. Expected inferences: testEvent1 is a Decided event; testDecision1 is a Superseded decision; testDecision2 is not."@en ,
                  "TalentFlow 測試個體。預期推理結果：testEvent1 歸入「已決策事件」；testDecision1 歸入「已被取代的決策」；testDecision2 不歸入。"@zh-hant .
 
