@@ -1,0 +1,10 @@
+# CQ 12：決策 D 依據哪些法規條款？（以 D2c 為例）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+SELECT ?regulation ?label WHERE {
+  tfs:d2c tf:basedOnRegulation ?regulation .
+  ?regulation rdfs:label ?label .
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+} ORDER BY ?label

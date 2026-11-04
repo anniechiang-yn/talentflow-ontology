@@ -1,0 +1,16 @@
+# CQ 9：事件 X 的完整決策歷程（含已取代決策）依時間排序為何？（以 E2 為例）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+SELECT ?decidedAt ?decisionLabel ?statusLabel ?superseded WHERE {
+  tfs:e2 tf:hasDecision ?decision .
+  ?decision tf:decidedAt ?decidedAt ;
+            rdfs:label ?decisionLabel ;
+            tf:hasDecisionStatus ?status .
+  ?status skos:prefLabel ?statusLabel .
+  BIND(EXISTS { ?newer tf:supersedes ?decision } AS ?superseded)
+  FILTER(LANGMATCHES(LANG(?decisionLabel), "en"))
+  FILTER(LANGMATCHES(LANG(?statusLabel), "en"))
+} ORDER BY ?decidedAt

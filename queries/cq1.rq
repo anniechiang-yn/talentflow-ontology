@@ -1,0 +1,20 @@
+# CQ 1：事件 X 目前的決策狀態是什麼？（以 E4 為例；定義同 CQ 3）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+SELECT ?decisionLabel ?statusLabel ?decidedAt WHERE {
+  tfs:e4 tf:hasDecision ?decision .
+  ?decision tf:decidedAt ?decidedAt ;
+            tf:hasDecisionStatus ?status ;
+            rdfs:label ?decisionLabel .
+  FILTER NOT EXISTS {
+    tfs:e4 tf:hasDecision ?other .
+    ?other tf:decidedAt ?otherAt .
+    FILTER(?otherAt > ?decidedAt)
+  }
+  ?status skos:prefLabel ?statusLabel .
+  FILTER(LANGMATCHES(LANG(?decisionLabel), "en"))
+  FILTER(LANGMATCHES(LANG(?statusLabel), "en"))
+}

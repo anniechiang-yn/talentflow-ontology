@@ -1,0 +1,11 @@
+# CQ 11：決策 D 由誰做出、於何時做出？（以 D2c 為例）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+SELECT ?actorLabel ?decidedAt WHERE {
+  tfs:d2c tf:madeBy ?actor ;
+          tf:decidedAt ?decidedAt .
+  ?actor rdfs:label ?actorLabel .
+  FILTER(LANGMATCHES(LANG(?actorLabel), "en"))
+}

@@ -1,0 +1,12 @@
+# CQ 2：哪些事件已逾期且未結案？
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+
+SELECT ?event ?label ?deadline WHERE {
+  ?event a tf:ComplianceEvent ;
+         rdfs:label ?label ;
+         tf:hasDeadline ?deadline .
+  FILTER(?deadline < NOW())
+  FILTER NOT EXISTS { ?event tf:hasClosedDate ?closed }
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+} ORDER BY ?deadline

@@ -1,0 +1,16 @@
+# CONSTRUCT 練習：把未結案事件抽成一張簡化的「待辦」子圖
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+
+CONSTRUCT {
+  ?event rdfs:label ?label ;
+         tf:hasDeadline ?deadline ;
+         tf:hasResponsibleActor ?actor .
+} WHERE {
+  ?event a tf:ComplianceEvent ;
+         rdfs:label ?label ;
+         tf:hasDeadline ?deadline .
+  OPTIONAL { ?event tf:hasResponsibleActor ?actor }
+  FILTER NOT EXISTS { ?event tf:hasClosedDate ?closed }
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+}

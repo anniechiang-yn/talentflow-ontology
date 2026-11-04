@@ -1,0 +1,11 @@
+# CQ 15：哪些事件的決策狀態屬於某上位概念之下？（以 Decision-bearing 為例）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX ds:   <https://anniechiang-data.framer.website/vocab/decision-status#>
+
+SELECT DISTINCT ?event ?label WHERE {
+  ?event tf:hasDecision/tf:hasDecisionStatus/skos:broader* ds:DecisionBearing ;
+         rdfs:label ?label .
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+} ORDER BY ?label

@@ -1,0 +1,23 @@
+# CQ 8：某人通報的所有事件目前各處於什麼狀態？（以人資部 hr 為例；目前狀態定義同 CQ 3）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+SELECT ?event ?label ?statusLabel WHERE {
+  ?event tf:reportedBy tfs:hr ;
+         rdfs:label ?label .
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+  OPTIONAL {
+    ?event tf:hasDecision ?decision .
+    ?decision tf:decidedAt ?decidedAt ;
+              tf:hasDecisionStatus ?status .
+    FILTER NOT EXISTS {
+      ?event tf:hasDecision ?other .
+      ?other tf:decidedAt ?otherAt .
+      FILTER(?otherAt > ?decidedAt)
+    }
+    ?status skos:prefLabel ?statusLabel .
+    FILTER(LANGMATCHES(LANG(?statusLabel), "en"))
+  }
+} ORDER BY ?label

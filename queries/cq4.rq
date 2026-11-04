@@ -1,0 +1,12 @@
+# CQ 4：未來 7 天內到期的事件有哪些？（含今天當下起算 7 天；CQ 原文未限定未結案）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?event ?label ?deadline WHERE {
+  ?event a tf:ComplianceEvent ;
+         rdfs:label ?label ;
+         tf:hasDeadline ?deadline .
+  FILTER(?deadline >= NOW() && ?deadline < NOW() + "P7D"^^xsd:dayTimeDuration)
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+} ORDER BY ?deadline

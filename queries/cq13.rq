@@ -1,0 +1,10 @@
+# CQ 13：事件 X 關聯哪些文件？（以 E2 為例）
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
+PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
+
+SELECT ?document ?label WHERE {
+  tfs:e2 tf:hasDocument ?document .
+  ?document rdfs:label ?label .
+  FILTER(LANGMATCHES(LANG(?label), "en"))
+}
