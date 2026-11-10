@@ -1,4 +1,4 @@
-# CONSTRUCT 練習：把未結案事件抽成一張簡化的「待辦」子圖
+# CONSTRUCT example: extract open events into a simplified to-do sub-graph
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 

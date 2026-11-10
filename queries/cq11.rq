@@ -1,4 +1,4 @@
-# CQ 11：決策 D 由誰做出、於何時做出？（以 D2c 為例）
+# CQ 11: Who made decision D, and when? (example: D2c)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>

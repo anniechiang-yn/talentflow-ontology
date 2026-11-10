@@ -1,4 +1,4 @@
-# CQ 12：決策 D 依據哪些法規條款？（以 D2c 為例）
+# CQ 12: Which regulations is decision D based on? (example: D2c)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>

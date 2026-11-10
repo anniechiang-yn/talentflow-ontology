@@ -1,4 +1,4 @@
-# CQ 8：某人通報的所有事件目前各處於什麼狀態？（以人資部 hr 為例；目前狀態定義同 CQ 3）
+# CQ 8: What is the current status of every event reported by a given actor? (example: HR department, hr; current status as in CQ 3)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>

@@ -1,4 +1,4 @@
-# CQ 14：涉及某法規條款的事件有哪些？（以 GDPR Art. 33 為例）
+# CQ 14: Which events involve a given article? (example: GDPR Art. 33)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>

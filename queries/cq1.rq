@@ -1,4 +1,4 @@
-# CQ 1：事件 X 目前的決策狀態是什麼？（以 E4 為例；定義同 CQ 3）
+# CQ 1: What is the current decision status of event X? (example: E4; same definition as CQ 3)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>

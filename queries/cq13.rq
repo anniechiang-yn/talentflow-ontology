@@ -1,4 +1,4 @@
-# CQ 13：事件 X 關聯哪些文件？（以 E2 為例）
+# CQ 13: Which documents are linked to event X? (example: E2)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>

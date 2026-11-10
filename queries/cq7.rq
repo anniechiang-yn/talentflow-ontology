@@ -1,4 +1,4 @@
-# CQ 7：事件 X 是否已有處置決策？（以 E5 為例；需推論開啟）
+# CQ 7: Has a decision been made for event X? (example: E5; requires inference)
 PREFIX tf:  <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs: <https://anniechiang-data.framer.website/ontology/talentflow-sample#>
 

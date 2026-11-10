@@ -1,4 +1,4 @@
-# CQ 15：哪些事件的決策狀態屬於某上位概念之下？（以 Decision-bearing 為例）
+# CQ 15: Which events have a status under a given broader concept? (example: Decision-bearing)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>

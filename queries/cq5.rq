@@ -1,4 +1,4 @@
-# CQ 5：某行動者負責的所有未結案事件有哪些？（以資料保護長 dpo 為例）
+# CQ 5: Which open events is a given actor responsible for? (example: the Data Protection Officer, dpo)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>

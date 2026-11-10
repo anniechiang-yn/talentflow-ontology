@@ -1,5 +1,5 @@
-# CQ 3：各決策狀態下各有幾件事件？
-# 「目前狀態」＝事件最新一個決策（decidedAt 最晚）的狀態；每個事件只算一次（Q2.13）
+# CQ 3: How many events are there under each decision status?
+# Current status of an event = status of its latest decision (latest decidedAt); each event is counted once
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 

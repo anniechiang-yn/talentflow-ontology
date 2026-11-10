@@ -1,4 +1,4 @@
-# CQ 10：決策 D 被哪個決策取代？完整取代鏈為何？（以 D2a 為例）
+# CQ 10: Which decisions replaced decision D, along the full chain? (example: D2a)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 PREFIX tfs:  <https://anniechiang-data.framer.website/ontology/talentflow-sample#>

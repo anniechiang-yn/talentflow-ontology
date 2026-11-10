@@ -1,5 +1,5 @@
-# CQ 16：哪些事件的現行有效決策（排除已取代、已否決、已放棄）涉及某法規條款？（以 GDPR Art. 33 為例）
-# 現行有效＝未被取代，且狀態屬於 ds:DecisionProgression（Exploring、Decided、Implemented）
+# CQ 16: Which events have decisions in force (not superseded, rejected or abandoned) based on a given article? (example: GDPR Art. 33)
+# In force = not superseded, and the status is a member of ds:DecisionProgression (Exploring, Decided, Implemented)
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>

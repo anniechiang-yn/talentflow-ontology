@@ -1,4 +1,4 @@
-# CQ 9：事件 X 的完整決策歷程（含已取代決策）依時間排序為何？（以 E2 為例）
+# CQ 9: What is the full decision history of event X, including superseded decisions, in time order? (example: E2)
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>

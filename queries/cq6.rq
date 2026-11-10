@@ -1,4 +1,4 @@
-# CQ 6：沒有指派負責人的事件有哪些？
+# CQ 6: Which events have no responsible actor assigned?
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 

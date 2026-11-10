@@ -1,4 +1,4 @@
-# CQ 2：哪些事件已逾期且未結案？
+# CQ 2: Which events are overdue and still open?
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tf:   <https://anniechiang-data.framer.website/ontology/talentflow#>
 
